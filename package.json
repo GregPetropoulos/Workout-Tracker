@@ -1,7 +1,7 @@
 {
   "name": "mongoose_skeleton",
   "version": "1.0.0",
-  "description": "",
+  "description": "workout-tracker",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,11 +9,22 @@
     "watch": "nodemon server.js",
     "seed": "node seeders/seed.js"
   },
-  "author": "",
+  "author": "Greg Petropoulos",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
-    "mongoose": "^5.3.16",
-    "morgan": "^1.9.1"
-  }
+    "express": "^4.17.1",
+    "mongoose": "^5.12.8",
+    "mongoose-morgan": "^1.0.17",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GregPetropoulos/Workout-Tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GregPetropoulos/Workout-Tracker/issues"
+  },
+  "homepage": "https://github.com/GregPetropoulos/Workout-Tracker#readme"
 }
