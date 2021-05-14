@@ -3,8 +3,10 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
+
 const db = require("./models")
-const User = require("./models/Workout.js");
+const Workout = require("./models/Workout.js");
+
 const app = express();
 
 app.use(logger("dev"));
@@ -14,11 +16,13 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+// https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+// setting up the mongoose connect
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true });
 
 app.post("/submit", ({ body }, res) => {
-  User.create(body)
-    .then(dbUser => {
+  db.Workout.create(body)
+    .then({ _id } => {
       res.json(dbUser);
     })
     .catch(err => {
