@@ -3,8 +3,8 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
-
-const User = require("./workoutModel.js");
+const db = require("./models")
+const User = require("./models/Workout.js");
 const app = express();
 
 app.use(logger("dev"));
