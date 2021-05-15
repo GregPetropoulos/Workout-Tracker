@@ -14,7 +14,7 @@ let workoutSeed = [
         type: "resistance",
         name: "Bicep Curl",
         duration: 20,
-        weight: 100,
+        weight: 100, 
         reps: 10,
         sets: 4
       }

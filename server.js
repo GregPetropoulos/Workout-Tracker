@@ -1,11 +1,12 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 
 const db = require("./models");
-const Workout = require("./models/Workout.js");
+const { get } = require("http");
 
 // ENVIRONMENT EXPRESS SET UP
 const app = express();
@@ -16,7 +17,7 @@ app.use(express.static("public"));
 
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // SET UP MONGOOSE CONNECT
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -24,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
 });
 
 // CREATE DB
-
+// used on example
 // db.Workout.create({Workout})
 // .then(dbWorkout => {
 //     console.log(dbWorkout)
@@ -35,18 +36,20 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", {
 
 // ROUTES
 // SUBMIT A NEW WORKOUT
-app.post("workout", ({ body }, res) => {
+app.post("/api/workouts", ({ body }, res) => {
   db.Workout.create(body)
     .then((workout) => {
-      res.status(201).json(workout);
+      console.log(workout);
+      res.json(workout);
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).json(err);
     });
 });
 
 // FIND PREVIOUS WORKOUT
-app.get("workout", (req, res) => {
+app.get("/api/workouts", (req, res) => {
   db.Workout.find({})
     .then((workout) => {
       res.json(workout);
@@ -55,8 +58,22 @@ app.get("workout", (req, res) => {
       res.json(err);
     });
 });
+app.get("/exercise", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/exercise.html"));
+});
 
-//   UPDATE A RECENT WORKOUT
+app.put("/api/workouts/:id", async ({ params, body }, res) => {
+  try{
+    const results = await db.Workout.findByIdAndUpdate(params.id, {
+      $push: { exercises: body },
+    });
+    res.json(results);
+  }catch(err){
+    console.log(err)
+    res.sendStatus(500).json(err)
+  }
+});
+// UPDATE A RECENT WORKOUT
 // ADD A NEW EXERCISE TO A NEW WORKOUT
 // VIEW COMBINED WEIGHT OF LAST SEVEN WORKOUTS ON STATS
 // VIEW TOTAL DURATION OF LAST SEVEN WORKOUTS ON STATS
