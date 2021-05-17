@@ -26,10 +26,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useFindAndModify: false, //set this to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify().
 });
 
-// STATS PAGE
-// VIEW COMBINED WEIGHT OF LAST SEVEN WORKOUTS ON STATS
-// VIEW TOTAL DURATION OF LAST SEVEN WORKOUTS ON STATS
-
 //apiRoutes middleware apply's the api routes in controllers to the app
 app.use(apiRoutes);
 app.use(htmlRoutes);

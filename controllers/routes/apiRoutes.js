@@ -2,9 +2,11 @@
 const Workout = require("../../models/Workout")
 const express = require("express");
 const router = express.Router();
+const { get } = require("http");
 
 
- // SUBMIT A NEW WORKOUT
+
+ // CREATE A NEW WORKOUT
 router.post("/api/workouts", ({ body }, res) => {
     try {
     Workout.create(body)
@@ -18,7 +20,7 @@ router.post("/api/workouts", ({ body }, res) => {
       }
   });
   
-  // FIND PREVIOUS WORKOUT
+  // FIND WORKOUTS
   router.get("/api/workouts", async (req, res) => {
     try {
     Workout.find({})
@@ -32,17 +34,50 @@ router.post("/api/workouts", ({ body }, res) => {
       }
   });
 
-  // UPDATE WORKOUT BY ID PUSH INTO AN ARRAY
+  // ADD WORKOUT BY ID PUSH INTO AN ARRAY
 router.put("/api/workouts/:id", async ({ params, body }, res) => {
     try{
       const results = await Workout.findByIdAndUpdate(params.id, {
-        $push: { exercises: body },
-      });
+        $push: { exercises: body }},
+        {new: true,runValidators:true }
+      );
       res.json(results);
     }catch(err){
       console.log(err)
       res.sendStatus(500).json(err)
     }
   });
+
+// STATS PAGE
+// VIEW COMBINED WEIGHT OF LAST SEVEN WORKOUTS ON STATS
+// VIEW TOTAL DURATION OF LAST SEVEN WORKOUTS ON STATS
+
+// ROUTES TO CREATE & FIND STATS --RANGE --------
+router.get("/api/workouts/range", async (req, res) => {
+    try {
+    Workout.find()
+      .then((workout) => {
+        res.json(workout);
+      })
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500).json(err);
+      }
+  });
+
+  router.post("/api/workouts/range", async (req, res) => {
+    try {
+    Workout.create({})
+      .then((workout) => {
+        res.json(workout);
+      })
+    }
+    catch(err){
+        console.log(err)
+        res.sendStatus(500).json(err);
+      }
+  });
+
   
 module.exports = router;
