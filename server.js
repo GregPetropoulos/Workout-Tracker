@@ -1,12 +1,14 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const path = require("path");
+const apiRoutes = require('./controllers/routes/apiRoutes');
+const htmlRoutes = require('./controllers/routes/htmlRoutes');
+
 
 const PORT = process.env.PORT || 3000;
 
-const db = require("./models");
-const { get } = require("http");
+// const db = require("./models");
+// const { get } = require("http");
 
 // ENVIRONMENT EXPRESS SET UP
 const app = express();
@@ -24,59 +26,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useFindAndModify: false, //set this to false to make findOneAndUpdate() and findOneAndRemove() use native findOneAndUpdate() rather than findAndModify().
 });
 
-// CREATE DB
-// used on example
-// db.Workout.create({Workout})
-// .then(dbWorkout => {
-//     console.log(dbWorkout)
-// })
-// .catch(({ message }) => {
-//     console.log("Hit", message)
-// });
-
-// ROUTES
-// SUBMIT A NEW WORKOUT
-app.post("/api/workouts", ({ body }, res) => {
-  db.Workout.create(body)
-    .then((workout) => {
-      console.log(workout);
-      res.json(workout);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
-
-// FIND PREVIOUS WORKOUT
-app.get("/api/workouts", (req, res) => {
-  db.Workout.find({})
-    .then((workout) => {
-      res.json(workout);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
-app.get("/exercise", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/exercise.html"));
-});
-
-app.put("/api/workouts/:id", async ({ params, body }, res) => {
-  try{
-    const results = await db.Workout.findByIdAndUpdate(params.id, {
-      $push: { exercises: body },
-    });
-    res.json(results);
-  }catch(err){
-    console.log(err)
-    res.sendStatus(500).json(err)
-  }
-});
-// UPDATE A RECENT WORKOUT
-// ADD A NEW EXERCISE TO A NEW WORKOUT
+// STATS PAGE
 // VIEW COMBINED WEIGHT OF LAST SEVEN WORKOUTS ON STATS
 // VIEW TOTAL DURATION OF LAST SEVEN WORKOUTS ON STATS
+
+//apiRoutes middleware apply's the api routes in controllers to the app
+app.use(apiRoutes);
+app.use(htmlRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
