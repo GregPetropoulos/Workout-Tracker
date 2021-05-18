@@ -7,9 +7,6 @@ const htmlRoutes = require('./controllers/routes/htmlRoutes');
 
 const PORT = process.env.PORT || 3000;
 
-// const db = require("./models");
-// const { get } = require("http");
-
 // ENVIRONMENT EXPRESS SET UP
 const app = express();
 app.use(logger("dev"));
@@ -21,7 +18,7 @@ app.use(express.static("public"));
 // SET UP MONGOOSE CONNECT
 
 //mongodb+srv://gregadmindb:n-i#yWTjg35._E!@cluster0.qste2.mongodb.net/Workout?retryWrites=true&w=majority
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
