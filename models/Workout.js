@@ -38,6 +38,8 @@ const WorkoutSchema = new Schema({
       },
     },
   ],
+  // New totalDuration dynamically shows up here 
+  // with the sum of last 7 days see apiRoutes line 67
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
