@@ -19,7 +19,9 @@ app.use(express.static("public"));
 
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // SET UP MONGOOSE CONNECT
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
+
+//mongodb+srv://gregadmindb:n-i#yWTjg35._E!@cluster0.qste2.mongodb.net/Workout?retryWrites=true&w=majority
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
