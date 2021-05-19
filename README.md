@@ -138,7 +138,7 @@ From the command line the workout database was seeded and verified on *Robo3T*
 * [Mongo Update Operators](https://docs.mongodb.com/manual/reference/operator/update/)
 * [Mongo Operators](https://docs.mongodb.com/manual/reference/operator/)
 * [npm mongo](https://www.npmjs.com/package/mongojs)
-* [Mongo Atlas](thttps://www.mongodb.com/cloud/atlas1)
+* [Mongo Atlas](https://www.mongodb.com/cloud/atlas1)
 * [Mongoose Aggregate Docs](https://mongoosejs.com/docs/api.html#aggregate_Aggregate)
 * [MongoDB $addFileds Operator](https://docs.mongodb.com/manual/reference/operator/aggregation/addFields/)
 * [MongoDB $sum Operator](https://docs.mongodb.com/manual/reference/operator/aggregation/sum/)
